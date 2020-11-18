@@ -1,0 +1,32 @@
+﻿@model CompanyListItemDTOout
+@inject IUserService userService
+<div class="card m-2" style="width: 16rem;">
+    <div class="card-body">
+        <h5 class="card-title font-weight-bold">
+            <i class="far fa-flag"></i> &nbsp;
+            <a href="@Model.WebPage">@Model.Name</a>
+        </h5>
+        @if (Model.CompanyAddresses.Any())
+        {
+            <h6>Offices: @Model.CompanyAddresses.Count() </h6>
+            <div class="sep-line"></div>
+            <ul class="list-unstyled d-flex flex-column my-0">
+                @foreach (var address in Model.CompanyAddresses)
+                {
+                    <partial name="_CompanyBranchPartial" model="address" />    
+                }
+            </ul>
+        }
+        @if (userService.IsLoggedIn && userService.User.IsInRole("Admin"))
+        {
+            <a class="btn btn-warning btn-sm my-2" asp-action="Edit" asp-route-id="@Model.Id"><i class="fas fa-wrench"></i> Edit Company</a>
+            @if (Model.CompanyAddresses.Sum(x => x.WorkersCount) > 0)
+            {
+                <form method="post" asp-action="Delete">
+                    <input type="hidden" name="countryId" value="@Model.Id" />
+                    <button type="submit" class="btn btn-sm btn-danger text-white"><i class="fas fa-eraser"></i> Remove Company</button>
+                </form>
+            }
+        }
+    </div>
+</div>   

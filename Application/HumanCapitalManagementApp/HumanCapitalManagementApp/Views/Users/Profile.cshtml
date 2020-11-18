@@ -1,0 +1,76 @@
+﻿@model UserProfileInfoDTOout
+@inject IUserService userService
+@{
+    bool isOwner = Model.Username == userService.User.UserName;
+}
+<h1 class="text-center">
+    <i class="far fa-user-circle"></i>
+    @if (isOwner)
+    {
+        <span>My </span>
+    }
+    else
+    {
+        <span>@Model.Username 's </span>
+    }
+    <span>Profile</span>
+</h1>
+
+<div class="row justify-content-center">
+    <div class="col-md-9 justify-content-between ">
+        <hr />
+        <section>
+            <form>
+                <div class="form-group row justify-content-center">
+                    <label class="col-sm-3 col-form-label" asp-for="@Model.FullName"></label>
+                    <div class="col-sm-5">
+                        <input type="text" readonly class="form-control-plaintext" asp-for="@Model.FullName">
+                    </div>
+                </div>
+                <div class="form-group row justify-content-center">
+                    <label class="col-sm-3 col-form-label" asp-for="@Model.Gender"></label>
+                    <div class="col-sm-5">
+                        <input type="text" readonly class="form-control-plaintext" asp-for="@Model.Gender">
+                    </div>
+                </div>
+                <div class="form-group row justify-content-center">
+                    <label class="col-sm-3 col-form-label" asp-for="@Model.BirthDateString">Born on</label>
+                    <div class="col-sm-5">
+                        <input type="text" readonly class="form-control-plaintext" asp-for="@Model.BirthDateString">
+                    </div>
+                </div>
+                <div class="form-group row justify-content-center">
+                    <label class="col-sm-3 col-form-label" asp-for="@Model.Email"></label>
+                    <div class="col-sm-5">
+                        <input type="text" readonly class="form-control-plaintext" asp-for="@Model.Email">
+                    </div>
+                </div>
+                <div class="form-group row justify-content-center">
+                    <label class="col-sm-3 col-form-label" asp-for="@Model.Phone"></label>
+                    <div class="col-sm-5">
+                        <input type="text" readonly class="form-control-plaintext" asp-for="@Model.Phone">
+                    </div>
+                </div>
+                <div class="form-group row justify-content-center">
+                    <label class="col-sm-3 col-form-label" asp-for="@Model.MailingAddress">Address</label>
+                    <div class="col-sm-5">
+                        <input type="text" readonly class="form-control-plaintext" asp-for="@Model.MailingAddress">
+                    </div>
+                </div>
+                <div class="form-group row justify-content-center">
+                    <label class="col-sm-3 col-form-label"> Residence town</label>
+                    <div class="col-sm-5">
+                        <input type="text" readonly class="form-control-plaintext" value="@Model.ResidenceTownName in @Model.ResidenceTownCountryName">
+                    </div>
+                </div>
+                @if (isOwner)
+                {
+                    <div class="form-group row justify-content-start">
+                        <div class="col-sm-2 mr-3"></div>
+                        <a class="col-sm-2 btn btn-danger text-warning mr-2" asp-area="" asp-controller="Users" asp-action="EditMyProfile"><i class="fas fa-wrench"></i>&nbsp;Edit</a>
+                    </div>
+                }
+            </form>
+        </section>
+    </div>
+</div>

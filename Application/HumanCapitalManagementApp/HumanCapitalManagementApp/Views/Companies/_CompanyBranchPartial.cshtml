@@ -1,0 +1,34 @@
+﻿@model CompanyAddressDTOout
+@{
+    var classIfMain = Model.IsPrimary ? "text-success" : "";
+}
+<li>
+    <div>
+        <p class="d-inline-block">
+            <i class="fas fa-flag @classIfMain"></i> Country: &nbsp; <span class="font-weight-bold font-italic">@Model.TownCountryName &nbsp;</span>
+        </p>
+        @*@if (Model.WorkersCount == 0 && !Model.IsPrimary)
+            {
+                <form method="post" class="d-inline" asp-action="DeleteAddress" asp-controller="Companies">
+                    <input type="hidden" asp-for="@Model.Id" />
+                    <button type="submit" class="btn btn-link text-danger d-inline"> Del</button>
+                </form>
+            }*@
+    </div>
+    <p><i class="fas fa-city @classIfMain"></i> Town: &nbsp; <span class="font-weight-bold font-italic">@Model.TownName &nbsp;</span> </p>
+</li>
+
+@if (Model.WorkersCount > 0)
+{
+    <li>
+        <p><i class="fas fa-users @classIfMain"></i> Workers: &nbsp; @Model.WorkersCount</p>
+    </li>
+}
+else
+{
+    <form method="post" asp-controller="Companies" asp-action="DeleteAddress" class="mt-2">
+        <input type="hidden" asp-for="@Model.Id" />
+        <button type="submit" class="btn btn-sm btn-danger text-white"><i class="fas fa-eraser"></i> Remove Branch</button>
+    </form>
+}
+<div class="sep-line"></div>

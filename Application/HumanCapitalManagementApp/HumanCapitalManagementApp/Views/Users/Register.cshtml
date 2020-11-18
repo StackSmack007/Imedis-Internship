@@ -1,0 +1,97 @@
+﻿@model UserRegisterDTOin
+@{
+    ViewData["Title"] = "Register";
+    ICollection<TownOptionDTOout> towns = ViewData["Towns"] as ICollection<TownOptionDTOout>;
+}
+<h1 class="text-center">@ViewData["Title"]</h1>
+<div class="row justify-content-center">
+    <div class="col-md-9 justify-content-between ">
+        <hr />
+        <section>
+            <form method="post" class="row justify-content-between">
+                <div class="col-md-6 pr-3">
+                    <div class="form-group">
+                        <label asp-for="@Model.Username"></label>
+                        <input placeholder="username...unique!" asp-for="@Model.Username" class="form-control" />
+                        <span asp-validation-for="@Model.Username" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="@Model.FirstName">First Name</label>
+                        <input placeholder="first name..." asp-for="@Model.FirstName" class="form-control" />
+                        <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.MiddleName">Middle Name</label>
+                        <input placeholder="last name...optional" asp-for="@Model.MiddleName" class="form-control" />
+                        <span asp-validation-for="@Model.MiddleName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.LastName">Last Name</label>
+                        <input placeholder="last name..." asp-for="@Model.LastName" class="form-control" />
+                        <span asp-validation-for="@Model.LastName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.Email"></label>
+                        <input type="email" placeholder="email..." asp-for="@Model.Email" class="form-control" />
+                        <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.DateOfBirth">BirthDate</label>
+                        <input type="date" placeholder="birthdate..." asp-for="@Model.DateOfBirth" class="form-control" />
+                        <span asp-validation-for="@Model.DateOfBirth" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6 pl-3">
+                    <div class="form-group">
+                        <label asp-for="@Model.MailingAddress">MailingAddress Address</label>
+                        <input placeholder="address..." asp-for="@Model.MailingAddress" class="form-control" minLenght="6" required />
+                        <span asp-validation-for="@Model.MailingAddress" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.Phone">Phone Number</label>
+                        <input placeholder="phone number..." asp-for="@Model.Phone" class="form-control" />
+                        <span asp-validation-for="@Model.Phone" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.Gender">Gender</label>
+                        <select required asp-for="@Model.Gender" class="form-control">
+                            <option disabled selected>Select gender!</option>
+                            @foreach (Gender gender in Enum.GetValues(typeof(Gender)))
+                            {
+                                <option value="@((int)gender)"> @gender.ToString()</option>
+
+                            }
+                        </select>
+                        <span asp-validation-for="@Model.Gender" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.ResidenceTownId">Residence Town</label>
+                        <select required asp-for="@Model.ResidenceTownId" class="form-control">
+                            <option disabled selected>Select town!</option>
+                            @foreach (TownOptionDTOout town in towns.OrderBy(x=>x.CountryName))
+                            {
+                                <option value="@town.Id"> @town.Name in @town.CountryName</option>
+
+                            }
+                        </select>
+                        <span asp-validation-for="@Model.ResidenceTownId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.Password"></label>
+                        <input type="password" placeholder="password..." asp-for="@Model.Password" class="form-control" />
+                        <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.VerifyPassword">Repeat passowrd</label>
+                        <input type="password" placeholder="password again..." asp-for="@Model.VerifyPassword" class="form-control" />
+                        <span asp-validation-for="@Model.VerifyPassword" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-12 form-group row justify-content-center">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>

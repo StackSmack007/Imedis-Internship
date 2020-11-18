@@ -1,0 +1,40 @@
+﻿@model CountryDTOin
+@{
+    ViewData["Title"] = "Add New Country";
+}
+
+<h1 class="text-center">@ViewData["Title"]</h1>
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <section>
+            <form method="post">
+                <h4>Register New Country</h4>
+                <hr />
+                <div class="form-group">
+                    <label asp-for="@Model.Id">3 Letter Unique Designation</label>
+                    <input asp-for="@Model.Id" class="form-control" onkeyup="this.value = this.value.toUpperCase();"/>
+                    <span asp-validation-for="@Model.Id" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.Name"></label>
+                    <input type="text" asp-for="@Model.Name" class="form-control" />
+                    <span asp-validation-for="@Model.Name" class="text-danger"></span>
+
+                    @if (ViewData.ContainsKey("Error"))
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert">
+                            <strong>Error</strong> @ViewData["Error"]
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    }
+
+                </div>
+                <div class="form-group row justify-content-center">
+                    <button type="submit" class="btn btn-success"><i class="fas fa-plus-circle "></i> Add Country</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+﻿@model CountryTownDTOout
+<li class="d-flex justify-content-start">
+    <span class="">@Model.Name</span>
+    <a href="#">Edit</a>
+    @if (Model.UsersCount == 0 && Model.CompanyAddressesCount == 0)
+    {
+        <a href="#">Delete</a>
+    }
+</li>

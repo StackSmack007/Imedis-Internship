@@ -1,0 +1,79 @@
+﻿<ul class="navbar-nav">
+    <!-- Level one dropdown -->
+    <li class="nav-item dropdown">
+        <a id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle btn btn-primary text-white"><i class="fas fa-tools"></i>  Admin Panel</a>
+        <ul aria-labelledby="dropdownMenu1" class="dropdown-menu border-0 shadow">
+
+            <!--<li><a href="#" class="dropdown-item">Some action </a></li>
+            <li><a href="#" class="dropdown-item">Some other action</a></li>
+            <li class="dropdown-divider"></li> -->
+
+            <li class="dropdown-submenu">
+                <a id="dropdownMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Countries/Towns</a>
+                <ul aria-labelledby="dropdownMenu2" class="dropdown-menu border-0 shadow">
+                    <li><a asp-controller="Countries" asp-action="Index" class="dropdown-item"><i class="fas fa-search text-success pr-2"></i> View/Edit Countries</a></li>
+                    <li><a asp-controller="Countries" asp-action="Add" class="dropdown-item"><i class="fas fa-plus-circle text-success pr-2"></i> Add new Country</a></li>
+                    <!-- more lvls if needed
+                    <li class="dropdown-submenu">
+                        <a id="dropdownMenu3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">2nd Lvl</a>
+                        <ul aria-labelledby="dropdownMenu3" class="dropdown-menu border-0 shadow">
+                            <li><a href="#" class="dropdown-item">3rd level A</a></li>
+                            <li><a href="#" class="dropdown-item">3rd level B</a></li>
+                        </ul>
+                    </li>  -->
+                </ul>
+            </li>
+
+            @*<li class="dropdown-submenu">
+                    <a id="dropdownMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Towns</a>
+                    <ul aria-labelledby="dropdownMenu2" class="dropdown-menu border-0 shadow">
+                        <li><a href="todo" class="dropdown-item"><i class="fas fa-search text-success pr-2"></i> View/Edit Towns</a></li>
+                        <li><a href="todo" class="dropdown-item"><i class="fas fa-plus-circle text-success pr-2"></i> Add New Town</a></li>
+                    </ul>
+                </li>*@
+
+            <li class="dropdown-submenu">
+                <a id="dropdownMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Companies</a>
+                <ul aria-labelledby="dropdownMenu2" class="dropdown-menu border-0 shadow">
+                    <li><a asp-controller="Companies" asp-action="Index" class="dropdown-item"><i class="fas fa-search text-success pr-2"></i> View/Edit Companies</a></li>
+                    <li><a asp-controller="Companies" asp-action="Create" class="dropdown-item"><i class="fas fa-plus-circle text-success pr-2"></i> Add New Company</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown-submenu">
+                <a id="dropdownMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Departments</a>
+                <ul aria-labelledby="dropdownMenu2" class="dropdown-menu border-0 shadow">
+                    <li><a href="todo" class="dropdown-item"><i class="fas fa-search text-success pr-2"></i> View/Edit Departments</a></li>
+                    <li><a href="todo" class="dropdown-item"><i class="fas fa-plus-circle text-success pr-2"></i> Add New Department</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown-submenu">
+                <a id="dropdownMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Jobs</a>
+                <ul aria-labelledby="dropdownMenu2" class="dropdown-menu border-0 shadow">
+                    <li><a href="todo" class="dropdown-item"><i class="fas fa-search text-success pr-2"></i> View/Edit Jobs</a></li>
+                    <li><a href="todo" class="dropdown-item"><i class="fas fa-plus-circle text-success pr-2"></i> Add New Job</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown-submenu">
+                <a id="dropdownMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Positions</a>
+                <ul aria-labelledby="dropdownMenu2" class="dropdown-menu border-0 shadow">
+                    <li><a href="todo" class="dropdown-item"><i class="fas fa-search text-success pr-2"></i> View All Current Positions</a></li>
+                    <li><a href="todo" class="dropdown-item"><i class="fas fa-search text-success pr-2"></i> View Closed Positions</a></li>
+                    <li><a href="todo" class="dropdown-item"><i class="fas fa-plus-circle text-success pr-2"></i> Enroll New Position </a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown-submenu">
+                <a id="dropdownMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Employees</a>
+                <ul aria-labelledby="dropdownMenu2" class="dropdown-menu border-0 shadow">
+                    <li><a href="todo" class="dropdown-item"><i class="fas fa-search text-success pr-2"></i> Manage Unasigned Employees</a></li>
+                    <li><a href="todo" class="dropdown-item"><i class="fas fa-search text-success pr-2"></i> Manage Asigned Employees</a></li>
+                </ul>
+            </li>
+            <!-- End Level two -->
+        </ul>
+    </li>
+    <!-- End Level one -->
+</ul>
