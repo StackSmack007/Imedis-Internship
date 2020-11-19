@@ -1,0 +1,48 @@
+﻿@model ICollection<PositionMiniDTOout>
+
+@{
+    var typeToshow = TempData.Peek("TypeOfPositionsChosen");
+}
+<center>
+    <h3 class="py-3"><i class="fas fa-clipboard-list"></i> @typeToshow</h3>
+    <div class="w-75  my-3" style="min-width:300px">
+
+        @if (Model.Any())
+        {
+            <div class="border-dark rounded d-flex flex-wrap border justify-content-center">
+                @foreach (var position in Model)
+                {
+                    <partial name="_PositionPadPartial" model="position" />
+                }
+            </div>
+            <hr />
+        }
+        else
+        {
+            <h4 class="text-left">There are no companies registered yet...:</h4>
+        }
+    </div>
+    <div class="w-75  my-3" style="min-width:300px">
+        @if (TempData.ContainsKey("Success"))
+        {
+            <div class="alert alert-success alert-dismissible fade show mt-4" role="alert">
+                <strong>&#x2713; Success</strong> @TempData["Success"]
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+        @if (TempData.ContainsKey("Failure"))
+        {
+            <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert">
+                <strong> Error</strong> @TempData["Failure"]
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        }
+
+
+    </div>
+        @*<a asp-area="" asp-controller="Dashboard" asp-action="SendGift" class="btn btn-primary">Send Gift To Another</a>*@
+</center>

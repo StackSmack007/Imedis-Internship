@@ -2,7 +2,6 @@
 using Helpers;
 using Infrastructure.Data;
 using System.ComponentModel.DataAnnotations;
-using Helpers.Interfaces;
 
 namespace DTO
 {

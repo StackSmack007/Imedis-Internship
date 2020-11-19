@@ -70,6 +70,13 @@ namespace HumanCapitalManagementApp.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+
+        public IActionResult Edit(string id)
+        {
+            return RedirectToAction("NotImplemented", "Home");
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> DeleteAddress(int id)
         {

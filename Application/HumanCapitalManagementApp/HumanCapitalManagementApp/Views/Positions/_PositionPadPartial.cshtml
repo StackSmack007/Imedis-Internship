@@ -1,0 +1,38 @@
+﻿@model PositionMiniDTOout
+@inject IUserService userService
+@{
+    bool positionStillActive = Model.EndDate==DateTime.MinValue;
+}
+<div class="card m-2" style="width: 20rem;">
+    <div class="card-body">
+        <h5 class="card-title font-weight-bold">
+            <i class="far fa-flag"></i> &nbsp;
+            <a asp-controller="Home" asp-action="NotImplemented">@Model.Job.Title in @Model.CompanyName</a>
+        </h5>
+        <div class="sep-line"></div>
+        <h6>Employee: <a asp-controller="Users" asp-action="Profile" asp-route-username="@Model.User.UserName">"@Model.User.FirstName @Model.User.LastName"</a></h6>
+        <div class="sep-line"></div>
+        @if (Model.Manager != null)
+        {
+            <h6>Manager: <a asp-controller="Users" asp-action="Profile" asp-route-username="@Model.Manager.UserName">"@(Model.Manager.FirstName[0]). @Model.Manager.LastName"</a></h6>
+            <div class="sep-line"></div>
+        }
+        <h6>Location: "@Model.CompanyAddressAddress", town @Model.CompanyAddressTownName in country-@Model.CompanyAddressTownCountryName </h6>
+        <div class="sep-line"></div>
+        <h6>Salary per Month: @Model.MonthlySalary @Model.Currency.Name</h6>
+        <h6>Occupation: @Model.WeekHours hours per week</h6>
+        <h6>Work Period: From @Model.StartDate.ToString("dd/MM/yyyy") till @(positionStillActive ? "nowadays" : Model.EndDate.ToString("dd/MM/yyyy"))</h6>
+        <div class="sep-line"></div>
+        @if (userService.IsLoggedIn && userService.User.IsInRole("Admin"))
+        {
+            <a class="btn btn-warning btn-sm my-2" asp-controller="Home" asp-action="NotImplemented"><i class="fas fa-wrench"></i> Edit Position</a>
+            @if (!positionStillActive)
+            {
+                <form method="post" asp-action="Delete">
+                    <input type="hidden" name="countryId" value="@Model.Id" />
+                    <button type="submit" class="btn btn-sm btn-danger text-white"><i class="fas fa-eraser"></i>Remove Position</button>
+                </form>
+            }
+        }
+    </div>
+</div>   

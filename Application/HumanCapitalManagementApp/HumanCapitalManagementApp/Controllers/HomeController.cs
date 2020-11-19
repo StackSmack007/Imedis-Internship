@@ -21,35 +21,17 @@ namespace HumanCapitalManagementApp.Controllers
 
         public IActionResult Index()
         {
-            //  countryService.GetAllCountriesAsync();
+            return View();
+        }
 
-
+        public IActionResult NotImplemented()
+        {
             return View();
         }
 
         public IActionResult Privacy()
         {
             var test = new User();
-
-            //var regData = new UserRegister
-            //{
-            //    Username = "test1",
-            //    DateOfBirth = new DateTime(1990, 9, 6),
-            //    Email = "test1@abv.bg",
-            //    FirstName = "Tester",
-            //    MiddleName = null,
-            //    LastName = "Testov",
-            //    ResidenceTownId = 2,
-            //    MailingAddress = "Nepredskazuema ulica 13",
-            //    Gender = Infrastructure.Data.Gender.Male,
-            //    Password = "123abcd",
-            //    Phone = "0883349666",
-            //};
-            //UserService.Register(regData);
-            //UserService.Logout();
-            // UserService.Login(new DTO.UserLogin {UsernameOrEmail="test1",Password= "123abcd" });
-
-            // HttpContext a = this.HttpContext;
             return View();
         }
 

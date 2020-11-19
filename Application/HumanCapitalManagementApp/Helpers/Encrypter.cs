@@ -4,7 +4,6 @@
     using System.Text;
     using System.Security.Cryptography;
     using System.IO;
-    using System.Linq;
     using Helpers.Interfaces;
 
     public class Encrypter : IEncrypter
