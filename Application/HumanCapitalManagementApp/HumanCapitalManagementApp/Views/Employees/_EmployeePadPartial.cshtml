@@ -30,9 +30,7 @@
                 {
                     <li>
                         <p> Company:  @job.CompanyAddressCompanyName  </p>
-                        <p> CompanyAddress:   "@job.CompanyAddressAddress", @job.CompanyAddressTownName in @job.CompanyAddressTownCountryName  </p>
-
-
+                        <p> CompanyAddress:   "@job.CompanyAddressAddress", @job.CompanyAddressTownName in @job.CompanyAddressTownCountryName  </p>     
                     </li>
 
                     <li>
@@ -42,8 +40,7 @@
                     {
                         <li>
                             <p> Manager:  <a asp-controller="Users" asp-action="Profile" asp-route-username="@job.ManagerUserName">@job.ManagerUserName</a> </p>
-                        </li>
-
+                        </li>     
                     }
                     <li>
                         <p>Monthly salary: @job.MonthlySalary.ToString("F2") (@job.CurrencyName) for @job.WeekHours hours of work per week. </p>
