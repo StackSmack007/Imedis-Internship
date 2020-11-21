@@ -50,7 +50,7 @@
             <li class="dropdown-submenu">
                 <a id="dropdownMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Positions</a>
                 <ul aria-labelledby="dropdownMenu2" class="dropdown-menu border-0 shadow">
-                    <li><a asp-controller="Positions" asp-action="Index"  class="dropdown-item"><i class="fas fa-search text-success pr-2"></i> View All Current Positions</a></li>
+                    <li><a asp-controller="Positions" asp-action="Index" class="dropdown-item"><i class="fas fa-search text-success pr-2"></i> View All Current Positions</a></li>
                     <li><a asp-controller="Positions" asp-action="Index" asp-route-openOnly="false" class="dropdown-item"><i class="fas fa-search text-success pr-2"></i> View Closed Positions</a></li>
                     <li><a asp-controller="Home" asp-action="NotImlemented" class="dropdown-item"><i class="fas fa-plus-circle text-success pr-2"></i> Enroll New Position </a></li>
                 </ul>
@@ -59,8 +59,8 @@
             <li class="dropdown-submenu">
                 <a id="dropdownMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Employees</a>
                 <ul aria-labelledby="dropdownMenu2" class="dropdown-menu border-0 shadow">
-                    <li><a asp-controller="Home" asp-action="NotImlemented" class="dropdown-item"><i class="fas fa-search text-success pr-2"></i> Manage Unasigned Employees</a></li>
-                    <li><a asp-controller="Home" asp-action="NotImlemented" class="dropdown-item"><i class="fas fa-search text-success pr-2"></i> Manage Asigned Employees</a></li>
+                    <li><a asp-controller="Employees" asp-action="Index" asp-route-assigned="false" class="dropdown-item"><i class="fas fa-search text-success pr-2"></i> Unoccupied employees</a></li>
+                    <li><a asp-controller="Employees" asp-action="Index" asp-route-assigned="true" class="dropdown-item"><i class="fas fa-search text-success pr-2"></i> Occupied employees</a></li>
                 </ul>
             </li>
             <!-- End Level two -->

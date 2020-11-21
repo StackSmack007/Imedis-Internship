@@ -29,6 +29,9 @@ namespace AutomapperCFG
 
             CreateMap<CompanyAddress, CompanyAddressDTOout>()
                .ForMember(d => d.WorkersCount, opt => opt.MapFrom(s => s.UserJobs.Count()));
+
+            CreateMap<User, EmployeeMiniDTOout>()
+               .ForMember(d => d.ManagedUsers, opt => opt.MapFrom(s => s.ManagedUsers.Select(uj => uj.User.Username)));
         }
 
         private void CreateMapToMappings(System.Collections.Generic.IEnumerable<Type> allTypes)

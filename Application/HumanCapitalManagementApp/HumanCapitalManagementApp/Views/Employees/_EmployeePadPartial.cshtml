@@ -1,0 +1,87 @@
+﻿@model EmployeeMiniDTOout
+@inject IUserService userService
+
+<div class="card m-2" style="width: 20rem;">
+    <div class="card-body">
+        <h5 class="card-title font-weight-bold">
+            <i class="far fa-user"></i> &nbsp;
+            <a asp-controller="Users" asp-action="Profile" asp-route-username="@Model.Username">&nbsp; @Model.Username - @GlobalConstants.GenderNamePrefixes[Model.Gender] @(Model.FirstName[0]). @Model.LastName</a>
+        </h5>
+        <h6>Address: "@Model.MailingAddress", @Model.ResidenceTownName, @Model.ResidenceTownCountryName</h6>
+
+        @if (Model.ManagedUsers.Any())
+        {
+            <h6>
+                Managed Users:
+                @foreach (string subbordinate in Model.ManagedUsers.OrderBy(x => x))
+                {
+                    <a asp-controller="Users" asp-action="Profile" asp-route-username="@subbordinate">@subbordinate</a>
+                    <span> , &nbsp;</span>
+                }
+            </h6>
+        }
+        @if (Model.UserJobs.Any())
+        {
+            <h6>Occupied Jobs:</h6>
+            <div class="sep-line"></div>
+
+            <ul class="list-unstyled">
+                @foreach (var job in Model.UserJobs)
+                {
+                    <li>
+                        <p> Company:  @job.CompanyAddressCompanyName  </p>
+                        <p> CompanyAddress:   "@job.CompanyAddressAddress", @job.CompanyAddressTownName in @job.CompanyAddressTownCountryName  </p>
+
+
+                    </li>
+
+                    <li>
+                        <p> Job:  @job.JobTitle in @job.JobDepartmentTitle department. Started on @job.StartDate.ToString("dd/MM/yyyy"). </p>
+                    </li>
+                    @if (!string.IsNullOrEmpty(job.ManagerUserName))
+                    {
+                        <li>
+                            <p> Manager:  <a asp-controller="Users" asp-action="Profile" asp-route-username="@job.ManagerUserName">@job.ManagerUserName</a> </p>
+                        </li>
+
+                    }
+                    <li>
+                        <p>Monthly salary: @job.MonthlySalary.ToString("F2") (@job.CurrencyName) for @job.WeekHours hours of work per week. </p>
+                    </li>
+                    @if (!job.JobActive)
+                    {
+                        <p class="text-danger font-weight-bold">Ended on: @job.EndDate.ToString("dd/MM/yyyy").</p>
+                    }
+                    <div class="sep-line"></div>
+                }
+
+            </ul>
+            @if (@Model.TotalIncome > 0)
+            {
+                <h6>Total Income: @Model.TotalIncome.ToString("F2") (BGN).</h6>
+            }
+            <h6>Total Month Work Hours: @Model.TotalWorkHoursPerMonth hours.</h6>
+        }
+        @*@if (Model.Manager != null)
+            {
+                <h6>Manager: <a asp-controller="Users" asp-action="Profile" asp-route-username="@Model.Manager.UserName">"@(Model.Manager.FirstName[0]). @Model.Manager.LastName"</a></h6>
+            }
+            <h6>Location: "@Model.CompanyAddressAddress", town @Model.CompanyAddressTownName in country-@Model.CompanyAddressTownCountryName </h6>
+            <div class="sep-line"></div>
+            <h6>Salary per Month: @Model.MonthlySalary @Model.Currency.Name</h6>
+            <h6>Occupation: @Model.WeekHours hours per week</h6>
+            <h6>Work Period: From @Model.StartDate.ToString("dd/MM/yyyy") till @(positionStillActive ? "nowadays" : Model.EndDate.ToString("dd/MM/yyyy"))</h6>
+            <div class="sep-line"></div>
+            @if (userService.IsLoggedIn && userService.User.IsInRole("Admin"))
+            {
+                <a class="btn btn-warning btn-sm my-2" asp-controller="Home" asp-action="NotImplemented"><i class="fas fa-wrench"></i> Edit Position</a>
+                @if (!positionStillActive)
+                {
+                    <form method="post" asp-action="Delete">
+                        <input type="hidden" name="countryId" value="@Model.Id" />
+                        <button type="submit" class="btn btn-sm btn-danger text-white"><i class="fas fa-eraser"></i>Remove Position</button>
+                    </form>
+                }
+            }*@
+    </div>
+</div>
