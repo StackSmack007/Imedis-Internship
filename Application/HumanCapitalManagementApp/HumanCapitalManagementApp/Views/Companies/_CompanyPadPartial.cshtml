@@ -20,7 +20,7 @@
         @if (userService.IsLoggedIn && userService.User.IsInRole("Admin"))
         {
             <a class="btn btn-warning btn-sm my-2" asp-action="Edit" asp-route-id="@Model.Id"><i class="fas fa-wrench"></i> Edit Company</a>
-            @if (Model.CompanyAddresses.Sum(x => x.WorkersCount) > 0)
+            @if (Model.CompanyAddresses.Sum(x => x.WorkersCount) == 0)
             {
                 <form method="post" asp-action="Delete">
                     <input type="hidden" name="countryId" value="@Model.Id" />

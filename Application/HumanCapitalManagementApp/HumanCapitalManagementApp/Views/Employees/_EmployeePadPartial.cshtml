@@ -4,7 +4,7 @@
 <div class="card m-2" style="width: 20rem;">
     <div class="card-body">
         <h5 class="card-title font-weight-bold">
-            <a asp-controller="Users" asp-action="Profile" asp-route-username="@Model.Username"><i class="far fa-user"></i>&nbsp;@Model.Username</a> - 
+            <a asp-controller="Users" asp-action="Profile" asp-route-username="@Model.Username"><i class="far fa-user"></i>&nbsp;@Model.Username</a> -
             <span class="font-italic">@GlobalConstants.GenderNamePrefixes[Model.Gender] @(Model.FirstName[0]). @Model.LastName</span>
         </h5>
         <h6><span class="font-weight-bold"><i class="fas fa-map-marker-alt"></i> Address: </span>"@Model.MailingAddress", @Model.ResidenceTownName, @Model.ResidenceTownCountryName</h6>
@@ -28,7 +28,7 @@
             <div class="sep-line"></div>
 
             <ul class="list-unstyled">
-                @foreach (var job in Model.UserJobs)
+                @foreach (var job in Model.UserJobs.OrderBy(x => x.JobActive).ThenBy(x=>x.StartDate))
                 {
                     <li>
                         <p class="text-left"><span class="font-weight-bold"><i class="fas fa-building"></i> Company:</span>  @job.CompanyAddressCompanyName  </p>

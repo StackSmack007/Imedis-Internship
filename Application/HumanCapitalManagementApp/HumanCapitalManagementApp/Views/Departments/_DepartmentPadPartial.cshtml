@@ -8,12 +8,6 @@
     <div class="card-body">
         <h5 class="card-title font-weight-bold"><i class="far fa-flag"></i> &nbsp; @Model.Title</h5>
 
-        @if (userIsAuthorized)
-        {
-            <div>
-                <a asp-controller="Home" asp-action="NotImplemented" class="btn btn-warning btn-sm">Edit</a>
-            </div>
-        }
         <h5>Jobs in department:</h5>
         @if (Model.Jobs.Count() == 0)
         {
@@ -24,7 +18,7 @@
             <div class="sep-line"></div>
             @foreach (var job in Model.Jobs)
             {
-                <h6>Job Name: "<span class="font-italic font-weight-bold" >@job.Title</span>"</h6>
+                <h6>Job Name: "<span class="font-italic font-weight-bold">@job.Title</span>"</h6>
                 <h6>Education: @job.MinimumEducation.ToString()</h6>
                 @if (job.UserJobsCount == 0)
                 {
@@ -46,6 +40,12 @@
             }
         }
 
+        @if (userIsAuthorized)
+        {
+            <div>
+                <a asp-controller="Home" asp-action="NotImplemented" class="btn btn-warning btn-sm">Edit</a>
+            </div>
+        }
     </div>
 </div>
 
