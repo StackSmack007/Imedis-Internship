@@ -29,8 +29,8 @@ namespace Infrastructure.Data
             Map(x => x.Email);
             Map(x => x.Phone);
             Map(x => x.IsPrimary,"is_primary");
-            References(x => x.Town,"town_id").Cascade.All();
-            References(x => x.Company,"company_id").Cascade.All();
+            References(x => x.Town,"town_id").Cascade.None();
+            References(x => x.Company,"company_id").Cascade.None();
             HasMany(x => x.UserJobs).Inverse().Cascade.All();
             Table("CompanyAddresses");
         }

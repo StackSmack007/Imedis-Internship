@@ -10,10 +10,6 @@ namespace Infrastructure.Data
             UserJobs = new List<UserJob>();
         }
         public virtual string Title { get; set; }
-
-        /// <summary>
-        /// Castable to EducationGrade
-        /// </summary>
         public virtual int MinimumEducation { get; set; }
         public virtual Department Department { get; set; }
         public virtual IList<UserJob> UserJobs { get; set; }
@@ -28,7 +24,7 @@ namespace Infrastructure.Data
             Map(x => x.Title);
             Map(x => x.MinimumEducation, "min_education_lvl");
             HasMany(x => x.UserJobs).Inverse().Cascade.All();
-            References(x => x.Department, "department_id").Cascade.All();
+            References(x => x.Department, "department_id").Cascade.None();
             Table("Jobs");
         }
     }

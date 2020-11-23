@@ -29,7 +29,7 @@ namespace Services
 
             }
         }
-        public async Task<Country> DeleteCountryAsync(string countryId)
+        public async Task<Country> DeleteAsync(string countryId)
         {
             using (var session = NhibernateHelper.OpenSession())
             {

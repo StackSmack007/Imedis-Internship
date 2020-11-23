@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper.QueryableExtensions;
 using NHibernate.Linq;
+using System.Collections.Generic;
 
 namespace Services
 {
@@ -162,6 +163,14 @@ namespace Services
                     await transaction.CommitAsync();
                 }
                 return true;
+            }
+        }
+
+        public async Task<ICollection<UserOptionDTOout>> GetAllUsersOptionsAsync()
+        {
+            using (var session = NhibernateHelper.OpenSession())
+            {
+                return await session.Query<User>().ProjectTo<UserOptionDTOout>(mapper.ConfigurationProvider).ToListAsync();
             }
         }
     }

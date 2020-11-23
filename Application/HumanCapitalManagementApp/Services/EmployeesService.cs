@@ -1,11 +1,11 @@
-﻿using AutoMapper;
-using DTO;
+﻿using DTO;
+using System;
+using AutoMapper;
+using System.Linq;
 using Infrastructure.Data;
 using NHibernate.Linq;
 using Services.Contracts;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Services
@@ -15,7 +15,7 @@ namespace Services
         public EmployeesService(IMapper mapper) : base(mapper)
         { }
 
-        public async Task<ICollection<EmployeeMiniDTOout>> GetEmployeesMiniAsync(bool assigned)
+        public async Task<ICollection<EmployeeMiniDTOout>> GetAllMiniAsync(bool assigned)
         {
             using (var session = NhibernateHelper.OpenSession())
             {
@@ -31,8 +31,7 @@ namespace Services
                 return data;
             }
         }
-
-        public async Task<ICollection<EmployeeMiniDTOout>> GetSearchedEmployeesAsync(EmployeeSearchQuery dto)
+        public async Task<ICollection<EmployeeMiniDTOout>> GetAllMiniByCriteriasAsync(EmployeeSearchQuery dto)
         {
             var predicats = new Dictionary<string, Func<IQueryable<User>, IQueryable<User>>>()
             {
@@ -47,12 +46,12 @@ namespace Services
                 foreach (string option in dto.Options.Select(x => x.ToLower()))
                 {
 
-                        var newResults = new HashSet<EmployeeMiniDTOout>(
-                             (await predicats[option](session.Query<User>())
-                             .ToListAsync())
-                            .Select(x => mapper.Map<EmployeeMiniDTOout>(x))
-                            );
-                        data.UnionWith(newResults);
+                    var newResults = new HashSet<EmployeeMiniDTOout>(
+                         (await predicats[option](session.Query<User>())
+                         .ToListAsync())
+                        .Select(x => mapper.Map<EmployeeMiniDTOout>(x))
+                        );
+                    data.UnionWith(newResults);
                 }
                 return data;
             }

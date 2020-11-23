@@ -6,7 +6,7 @@ namespace Services.Contracts
 {
     public interface IEmployeesService
     {
-        Task<ICollection<EmployeeMiniDTOout>> GetEmployeesMiniAsync(bool asigned);
-        Task<ICollection<EmployeeMiniDTOout>> GetSearchedEmployeesAsync(EmployeeSearchQuery dto);
+        Task<ICollection<EmployeeMiniDTOout>> GetAllMiniAsync(bool asigned);
+        Task<ICollection<EmployeeMiniDTOout>> GetAllMiniByCriteriasAsync(EmployeeSearchQuery dto);
     }
 }

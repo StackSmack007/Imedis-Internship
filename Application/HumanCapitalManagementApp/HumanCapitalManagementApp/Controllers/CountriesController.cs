@@ -13,7 +13,7 @@ namespace HumanCapitalManagementApp.Controllers
     {
         private readonly ICountryService countryService;
 
-        public CountriesController(IUserService userService, ITownService ts, ICountryService countryService) : base(userService, ts)
+        public CountriesController(IUserService userService, ICountryService countryService) : base(userService)
         {
             this.countryService = countryService;
         }
@@ -106,11 +106,11 @@ namespace HumanCapitalManagementApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteCountry(string countryId)
+        public async Task<IActionResult> DeleteCountry(string id)
         {
             if (UserService.IsLoggedIn && UserService.User.IsInRole("Admin"))
             {
-                Country countryDeleted = await countryService.DeleteCountryAsync(countryId);
+                Country countryDeleted = await countryService.DeleteAsync(id);
                 if (countryDeleted != null)
                 {
                     TempData["Success"] = $"Country [{countryDeleted.Name}] was successfully removed!";

@@ -104,10 +104,18 @@ namespace Services
                     {
                         throw new InvalidOperationException($"Address in town {addressFd.Town.Name} of {addressFd.Company.Name} company, contained workers and can not be deleted!");
                     }
-                        await session.DeleteAsync(addressFd);
-                        await transaction.CommitAsync();
-                        return addressFd;               
+                    await session.DeleteAsync(addressFd);
+                    await transaction.CommitAsync();
+                    return addressFd;
                 }
+            }
+        }
+
+        public async Task<ICollection<CompanyOfficeOptionDTOout>> GetAllCompanyOfficeOptionsAsync()
+        {
+            using (var session = NhibernateHelper.OpenSession())
+            {
+                return (await session.Query<Company>().ToListAsync()).Select(x => mapper.Map<CompanyOfficeOptionDTOout>(x)).ToArray();
             }
         }
     }

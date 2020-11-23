@@ -4,50 +4,53 @@
 <div class="card m-2" style="width: 20rem;">
     <div class="card-body">
         <h5 class="card-title font-weight-bold">
-            <i class="far fa-user"></i> &nbsp;
-            <a asp-controller="Users" asp-action="Profile" asp-route-username="@Model.Username">&nbsp; @Model.Username - @GlobalConstants.GenderNamePrefixes[Model.Gender] @(Model.FirstName[0]). @Model.LastName</a>
+            <a asp-controller="Users" asp-action="Profile" asp-route-username="@Model.Username"><i class="far fa-user"></i>&nbsp;@Model.Username</a> - 
+            <span class="font-italic">@GlobalConstants.GenderNamePrefixes[Model.Gender] @(Model.FirstName[0]). @Model.LastName</span>
         </h5>
-        <h6>Address: "@Model.MailingAddress", @Model.ResidenceTownName, @Model.ResidenceTownCountryName</h6>
+        <h6><span class="font-weight-bold"><i class="fas fa-map-marker-alt"></i> Address: </span>"@Model.MailingAddress", @Model.ResidenceTownName, @Model.ResidenceTownCountryName</h6>
 
         @if (Model.ManagedUsers.Any())
         {
             <h6>
-                Managed Users:
+                <span class="font-weight-bold">
+                    <i class="fas fa-users"></i>  Managed Users:
+                </span>
                 @foreach (string subbordinate in Model.ManagedUsers.OrderBy(x => x))
                 {
                     <a asp-controller="Users" asp-action="Profile" asp-route-username="@subbordinate">@subbordinate</a>
-                    <span> , &nbsp;</span>
+                    <span>;&nbsp;</span>
                 }
             </h6>
         }
         @if (Model.UserJobs.Any())
         {
-            <h6>Occupied Jobs:</h6>
+            <h5 class="font-weight-bold text-left"><i class="fas fa-journal-whills"></i> Occupied Jobs:</h5>
             <div class="sep-line"></div>
 
             <ul class="list-unstyled">
                 @foreach (var job in Model.UserJobs)
                 {
                     <li>
-                        <p> Company:  @job.CompanyAddressCompanyName  </p>
-                        <p> CompanyAddress:   "@job.CompanyAddressAddress", @job.CompanyAddressTownName in @job.CompanyAddressTownCountryName  </p>     
+                        <p class="text-left"><span class="font-weight-bold"><i class="fas fa-building"></i> Company:</span>  @job.CompanyAddressCompanyName  </p>
+                        <p class="text-left"><span class="font-weight-bold"><i class="fas fa-map-marker-alt"></i> CompanyAddress:</span>   "@job.CompanyAddressAddress", @job.CompanyAddressTownName in @job.CompanyAddressTownCountryName  </p>
                     </li>
 
                     <li>
-                        <p> Job:  @job.JobTitle in @job.JobDepartmentTitle department. Started on @job.StartDate.ToString("dd/MM/yyyy"). </p>
+                        <p class="text-left"><span class="font-weight-bold"><i class="fas fa-briefcase"></i> Job: </span> @job.JobTitle in @job.JobDepartmentTitle department. Started on @job.StartDate.ToString("dd/MM/yyyy"). </p>
                     </li>
                     @if (!string.IsNullOrEmpty(job.ManagerUserName))
                     {
                         <li>
-                            <p> Manager:  <a asp-controller="Users" asp-action="Profile" asp-route-username="@job.ManagerUserName">@job.ManagerUserName</a> </p>
-                        </li>     
+                            <p class="text-left"><span class="font-weight-bold"><i class="fas fa-user-tie"></i> Manager: </span> <a asp-controller="Users" asp-action="Profile" asp-route-username="@job.ManagerUserName">@job.ManagerUserName</a> </p>
+                        </li>
+
                     }
                     <li>
-                        <p>Monthly salary: @job.MonthlySalary.ToString("F2") (@job.CurrencyName) for @job.WeekHours hours of work per week. </p>
+                        <p class="text-left"><span class="font-weight-bold"><i class="fas fa-money-bill-wave"></i> Monthly salary:</span> @job.MonthlySalary.ToString("F2") (@job.CurrencyName) for @job.WeekHours hours of work per week. </p>
                     </li>
                     @if (!job.JobActive)
                     {
-                        <p class="text-danger font-weight-bold">Ended on: @job.EndDate.ToString("dd/MM/yyyy").</p>
+                        <p class="text-danger font-weight-bold text-left"><i class="fas fa-hourglass-end"></i> Ended on: @job.EndDate.ToString("dd/MM/yyyy").</p>
                     }
                     <div class="sep-line"></div>
                 }
@@ -55,9 +58,9 @@
             </ul>
             @if (@Model.TotalIncome > 0)
             {
-                <h6>Total Income: @Model.TotalIncome.ToString("F2") (BGN).</h6>
+                <h6 class="text-left"><span class="font-weight-bold"><i class="fas fa-money-bill-wave"></i> Total Income:</span> @Model.TotalIncome.ToString("F2") (BGN).</h6>
             }
-            <h6>Total Month Work Hours: @Model.TotalWorkHoursPerMonth hours.</h6>
+            <h6 class="text-left"><span class="font-weight-bold"><i class="far fa-clock"></i> Total Month Work Hours: </span> @Model.TotalWorkHoursPerMonth h.</h6>
         }
         @*@if (Model.Manager != null)
             {

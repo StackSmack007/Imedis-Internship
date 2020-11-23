@@ -8,12 +8,16 @@ namespace HumanCapitalManagementApp.Controllers
 {
     public class UsersController : BaseController
     {
-        public UsersController(IUserService userService, ITownService ts) : base(userService, ts)
-        { }
+        private readonly ITownService townService;
+
+        public UsersController(IUserService us, ITownService townService) : base(us)
+        {
+            this.townService = townService;
+        }
 
         public async Task<IActionResult> Register()
         {
-            await StoreTownsToViewData();
+            await StoreTownsToViewData(townService);
             return View();
         }
 
@@ -22,7 +26,7 @@ namespace HumanCapitalManagementApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                await StoreTownsToViewData();
+                await StoreTownsToViewData(townService);
                 return View(dto);
             }
 
@@ -56,7 +60,7 @@ namespace HumanCapitalManagementApp.Controllers
             ViewData["LoginError"] = "Username or Password Missmatch";
             return View(dto);
         }
-               
+
         public async Task<IActionResult> Profile(string username) =>
                                          View(await UserService.GetProfileDataAsync(username));
 
@@ -67,7 +71,7 @@ namespace HumanCapitalManagementApp.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-            await StoreTownsToViewData();
+            await StoreTownsToViewData(townService);
             return View(data);
         }
 
@@ -85,7 +89,7 @@ namespace HumanCapitalManagementApp.Controllers
             }
             if (!ModelState.IsValid)
             {
-                await StoreTownsToViewData();
+                await StoreTownsToViewData(townService);
                 return View(dto);
             }
 

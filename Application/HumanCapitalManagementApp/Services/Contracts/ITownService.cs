@@ -6,6 +6,6 @@ namespace Services.Contracts
 {
     public interface ITownService
     {
-        Task<ICollection<TownOptionDTOout>> GetAllTownsAsync();
+        Task<ICollection<TownOptionDTOout>> GetAllTownOptionsAsync();
     }
 }

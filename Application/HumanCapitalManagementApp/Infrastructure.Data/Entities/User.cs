@@ -42,8 +42,7 @@ namespace Infrastructure.Data
             Map(x => x.MiddleName,"middle_name").Nullable();
             Map(x => x.LastName,"last_name");
             Map(x => x.Phone);
-            Map(x => x.Password);
-          
+            Map(x => x.Password);          
             Map(x => x.Email);
             Map(x => x.Gender);
             Map(x => x.MailingAddress,"mailing_address");

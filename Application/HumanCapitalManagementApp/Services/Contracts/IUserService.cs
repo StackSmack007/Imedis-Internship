@@ -1,4 +1,5 @@
 ﻿using DTO;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Services.Contracts
@@ -13,5 +14,6 @@ namespace Services.Contracts
         bool IsLoggedIn { get; }
         UserDataDTOout User { get; }
         void Logout();
+        Task<ICollection<UserOptionDTOout>> GetAllUsersOptionsAsync();
     }
 }

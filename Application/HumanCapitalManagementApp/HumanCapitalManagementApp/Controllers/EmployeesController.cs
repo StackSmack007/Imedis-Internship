@@ -11,14 +11,13 @@ namespace HumanCapitalManagementApp.Controllers
     {
         private readonly IEmployeesService employeesService;
 
-        public EmployeesController(IEmployeesService employeesService, IUserService userService, ITownService townService) : base(userService, townService)
+        public EmployeesController(IEmployeesService employeesService, IUserService userService) : base(userService)
         {
             this.employeesService = employeesService;
         }
 
         public async Task<IActionResult> Index(bool assigned = true)
         {
-          //  ViewData["Assigned"] = assigned;
             if (assigned)
             {
                 ViewData["Headline"] = "Occupied employees";
@@ -28,7 +27,7 @@ namespace HumanCapitalManagementApp.Controllers
                 ViewData["Headline"] = "Unoccupied employees";
             }
 
-            ICollection<EmployeeMiniDTOout> employees = await employeesService.GetEmployeesMiniAsync(assigned);
+            ICollection<EmployeeMiniDTOout> employees = await employeesService.GetAllMiniAsync(assigned);
             return View(employees);
         }
 
@@ -38,7 +37,7 @@ namespace HumanCapitalManagementApp.Controllers
             {
                 return RedirectToAction("Index");
             }
-            ICollection<EmployeeMiniDTOout> employeesFd = await employeesService.GetSearchedEmployeesAsync(dto);
+            ICollection<EmployeeMiniDTOout> employeesFd = await employeesService.GetAllMiniByCriteriasAsync(dto);
             ViewData["Headline"] = $"Results of search for {dto.ToString()}";
             return View("Index",employeesFd);
         }

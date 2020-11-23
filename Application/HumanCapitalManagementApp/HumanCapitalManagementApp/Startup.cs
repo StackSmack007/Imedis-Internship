@@ -44,6 +44,7 @@ namespace HumanCapitalManagementApp
             services.AddTransient<IDepartmentsService, DepartmentsService>();
             services.AddTransient<IPosititionsService, PositionsService>();
             services.AddTransient<IEmployeesService, EmployeesService>();
+            services.AddTransient<IJobService, JobService>();
             services
                .AddControllersWithViews()
                .AddRazorRuntimeCompilation();

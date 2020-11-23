@@ -11,7 +11,7 @@ namespace HumanCapitalManagementApp.Controllers
     {
         private readonly IDepartmentsService departmentsService;
 
-        public DepartmentsController(IDepartmentsService departmentsService, IUserService userService, ITownService townService) : base(userService, townService)
+        public DepartmentsController(IDepartmentsService departmentsService, IUserService userService) : base(userService)
         {
             this.departmentsService = departmentsService;
         }

@@ -9,10 +9,12 @@ namespace HumanCapitalManagementApp.Controllers
     public class CompaniesController : BaseController
     {
         private readonly ICompaniesService companiesService;
+        private readonly ITownService townService;
 
-        public CompaniesController(ICompaniesService companiesService, IUserService userService, ITownService townService) : base(userService, townService)
+        public CompaniesController(ICompaniesService companiesService, IUserService userService, ITownService townService) : base(userService)
         {
             this.companiesService = companiesService;
+            this.townService = townService;
         }
 
         public async Task<IActionResult> Index() =>
@@ -36,7 +38,7 @@ namespace HumanCapitalManagementApp.Controllers
         {
             if (UserService.IsLoggedIn && UserService.User.IsInRole("Admin"))
             {
-                await StoreTownsToViewData();
+                await StoreTownsToViewData(townService);
                 return View();
             }
 
@@ -50,7 +52,7 @@ namespace HumanCapitalManagementApp.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    await StoreTownsToViewData();
+                    await StoreTownsToViewData(townService);
                     return View(dto);
                 }
 

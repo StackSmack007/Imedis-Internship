@@ -11,5 +11,6 @@ namespace Services.Contracts
         Task<Company> DeleteAsync(string id);
         Task<Company> CreateAsync(CompanyDTOin dto);
         Task<CompanyAddress> DeleteAddressAsync(int id);
+        Task<ICollection<CompanyOfficeOptionDTOout>> GetAllCompanyOfficeOptionsAsync();
     }
 }

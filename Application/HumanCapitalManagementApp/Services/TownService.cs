@@ -14,7 +14,7 @@ namespace Services
         public TownService(IMapper mapper) : base(mapper)
         { }
 
-        public async Task<ICollection<TownOptionDTOout>> GetAllTownsAsync()
+        public async Task<ICollection<TownOptionDTOout>> GetAllTownOptionsAsync()
         {
             using (var session = NhibernateHelper.OpenSession())
             {

@@ -30,8 +30,8 @@
         else
         {
             <a class="btn btn-warning btn-sm my-2" asp-action="Edit" asp-route-id="@Model.Id"><i class="fas fa-wrench"></i> Edit Country</a>
-            <form method="post" asp-action="DeleteCountry">
-                <input type="hidden" name="countryId" value="@Model.Id" />
+            <form method="post" asp-action="Delete">
+                <input type="hidden" name="id" value="@Model.Id" />
                 <button type="submit" class="btn btn-sm btn-danger text-white"><i class="fas fa-eraser"></i> Remove Country</button>
             </form>
         }
