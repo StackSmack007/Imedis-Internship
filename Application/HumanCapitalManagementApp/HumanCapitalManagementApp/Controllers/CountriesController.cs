@@ -20,13 +20,47 @@ namespace HumanCapitalManagementApp.Controllers
 
         public async Task<IActionResult> Index()
         {
-
-            if (UserService.IsLoggedIn && UserService.User.IsInRole("Admin"))
+            if (UserService.IsLoggedIn)
             {
                 return View(await countryService.GetAllCountriesAsync());
             }
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult Add()
+        {
+            if (UserService.IsLoggedIn && UserService.User.IsInRole("Admin"))
+            {
+                return View();
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+        [HttpPost]
+        public async Task<IActionResult> Add(CountryDTOin dto)
+        {
+            if (!UserService.IsLoggedIn || !UserService.User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            if (!ModelState.IsValid)
+            {
+                return View(dto);
+            }
+
+            try
+            {
+                await countryService.CreateCountryAsync(dto);
+            }
+            catch (InvalidOperationException ex)
+            {
+                ViewData["Error"] = ex.Message;
+                return View(dto);
+            }
+
+            TempData["Success"] = $"Country [{dto.Name}] was successfully added!";
+            return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> Edit(string id)
@@ -40,7 +74,6 @@ namespace HumanCapitalManagementApp.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-
         [HttpPost]
         public async Task<IActionResult> Edit(CountryEDITout dto)
         {
@@ -66,43 +99,6 @@ namespace HumanCapitalManagementApp.Controllers
             }
 
             return RedirectToAction("Index", "Home");
-        }
-
-
-        public IActionResult Add()
-        {
-            if (UserService.IsLoggedIn && UserService.User.IsInRole("Admin"))
-            {
-                return View();
-            }
-
-            return RedirectToAction("Index", "Home");
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Add(CountryDTOin dto)
-        {
-            if (!UserService.IsLoggedIn || !UserService.User.IsInRole("Admin"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            if (!ModelState.IsValid)
-            {
-                return View(dto);
-            }
-
-            try
-            {
-                await countryService.CreateCountryAsync(dto);
-            }
-            catch (InvalidOperationException ex)
-            {
-                ViewData["Error"] = ex.Message;
-                return View(dto);
-            }
-
-            TempData["Success"] = $"Country [{dto.Name}] was successfully added!";
-            return RedirectToAction("Index");
         }
 
         [HttpPost]

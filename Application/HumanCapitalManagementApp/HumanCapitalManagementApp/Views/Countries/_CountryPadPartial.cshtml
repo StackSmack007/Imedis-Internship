@@ -1,43 +1,38 @@
 ﻿@model CountryDTOout
+@inject IUserService userService
 <div class="card m-2" style="width: 16rem;">
     <div class="card-body">
         <h5 class="card-title font-weight-bold"><i class="far fa-flag"></i> &nbsp; @Model.Name</h5>
-        @*<div class="d-flex  flex-column flex-grow-1 justify-content-end">*@
-            @if (Model.Towns.Any())
-            {
-                <h6 class="card-subtitle mb-2"><i class="fas fa-users"></i> Users: @Model.UsersTotal</h6>
-                <h6 class="card-subtitle mb-2"><i class="fas fa-industry"></i> Companies: @Model.CompaniesTotal</h6>
-                <h6 class="card-subtitle mb-2">
-                    <i class="fas fa-city"></i> Towns: @Model.Towns.Count()
-                    <span class="show"><i class="fas fa-plus-square"></i></span>
-                </h6>
-                <ul class="towns">
-                    <div class="sep-line"></div>
-                    @foreach (var town in Model.Towns)
-                    {
-                        <li class="d-flex justify-content-start">
-                            <i class="fas fa-city"></i> &nbsp; <span class="font-weight-bold font-italic">@town.Name &nbsp;</span>
-                            <a href="#" class="text-info">&#x270E; </a>
-                            <span>&nbsp; &nbsp;</span>
-                            @if (town.UsersCount == 0 && town.CompanyAddressesCount == 0)
-                            {
-                                <a href="#" class="text-danger h5"> &#x2718;</a>
-                            }
-                        </li>
 
-                    }
-                    <div class="sep-line"></div>
-                </ul>
-                <a class="btn btn-warning btn-sm my-2" asp-action="Edit" asp-route-id="@Model.Id"><i class="fas fa-wrench"></i> Edit Country</a>
-            }
-            else
+        @if (Model.Towns.Any())
+        {
+            <h6 class="card-subtitle mb-2"><i class="fas fa-users"></i> Users: @Model.UsersTotal</h6>
+            <h6 class="card-subtitle mb-2"><i class="fas fa-industry"></i> Companies: @Model.CompaniesTotal</h6>
+            <h6 class="card-subtitle mb-2">
+                <i class="fas fa-city"></i> Towns: @Model.Towns.Count()
+                <span class="show"><i class="fas fa-plus-square"></i></span>
+            </h6>
+            <ul class="towns">
+                <div class="sep-line"></div>
+                @foreach (var town in Model.Towns)
+                {
+                    <partial name="_CountryTownPartial" model="@town" />
+                }
+                <div class="sep-line"></div>
+            </ul>
+
+        }
+        @if (userService.User.IsInRole("Admin"))
+        {
+            <a class="btn btn-warning btn-sm my-2" asp-action="Edit" asp-route-id="@Model.Id"><i class="fas fa-wrench"></i> Edit Country</a>
+            @if (!Model.Towns.Any())
             {
-                <a class="btn btn-warning btn-sm my-2" asp-action="Edit" asp-route-id="@Model.Id"><i class="fas fa-wrench"></i> Edit Country</a>
                 <form method="post" asp-action="Delete">
                     <input type="hidden" name="id" value="@Model.Id" />
                     <button type="submit" class="btn btn-sm btn-danger text-white"><i class="fas fa-eraser"></i> Remove Country</button>
                 </form>
             }
-        </div>
-    @*</div>*@
+        }
+    </div>
+
 </div>   

@@ -1,5 +1,9 @@
 ﻿@model CompanyListItemDTOout
 @inject IUserService userService
+
+@{
+    bool isAdmin = userService.IsLoggedIn && userService.User.IsInRole("Admin");
+}
 <div class="card m-2" style="width: 16rem;">
     <div class="card-body">
         <h5 class="card-title font-weight-bold">
@@ -13,11 +17,11 @@
             <ul class="list-unstyled d-flex flex-column my-0">
                 @foreach (var address in Model.CompanyAddresses)
                 {
-                    <partial name="_CompanyBranchPartial" model="address" />    
+                    <partial name="_CompanyBranchPartial" isAdmin="@isAdmin" model="address" />   
                 }
             </ul>
         }
-        @if (userService.IsLoggedIn && userService.User.IsInRole("Admin"))
+        @if (isAdmin)
         {
             <a class="btn btn-warning btn-sm my-2" asp-action="Edit" asp-route-id="@Model.Id"><i class="fas fa-wrench"></i> Edit Company</a>
             @if (Model.CompanyAddresses.Sum(x => x.WorkersCount) == 0)

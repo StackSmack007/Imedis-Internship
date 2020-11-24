@@ -1,13 +1,13 @@
 ﻿@model PositionEditDTOin
 @{
-    ViewData["Title"] = "Edit Existing Job Occupation";
+    ViewData["Title"] = "Edit Assignment";
     var employees = ViewData["employeeOptions"] as ICollection<UserOptionDTOout>;
     var offices = ViewData["companyOffices"] as ICollection<CompanyOfficeOptionDTOout>;
     var jobs = ViewData["jobOptions"] as ICollection<JobOptionDTOout>;
     var currencies = ViewData["currencies"] as ICollection<Currency>;
 }        
 
-<h1 class="text-center">@ViewData["Title"]</h1>
+<h1 class="text-center">Edit Job Assigned Possition</h1>
 <div class="row justify-content-center">
     <div class="col-md-9 justify-content-between ">
         <hr />

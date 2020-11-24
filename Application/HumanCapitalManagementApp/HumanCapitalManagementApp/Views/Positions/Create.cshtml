@@ -1,13 +1,13 @@
 ﻿@model PositionDTOin
 @{
-    ViewData["Title"] = "Register new Job Occupation";
+    ViewData["Title"] = "Create Possition";
     var employees = ViewData["employeeOptions"] as ICollection<UserOptionDTOout>;
     var offices = ViewData["companyOffices"] as ICollection<CompanyOfficeOptionDTOout>;
     var jobs = ViewData["jobOptions"] as ICollection<JobOptionDTOout>;
     var currencies = ViewData["currencies"] as ICollection<Currency>;
 }
 
-<h1 class="text-center">@ViewData["Title"]</h1>
+<h1 class="text-center">Register new Job assignment:</h1>
 <div class="row justify-content-center">
     <div class="col-md-9 justify-content-between ">
         <hr />

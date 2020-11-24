@@ -1,9 +1,15 @@
 ﻿@model CountryTownDTOout
+@inject IUserService userService
+
 <li class="d-flex justify-content-start">
-    <span class="">@Model.Name</span>
-    <a href="#">Edit</a>
-    @if (Model.UsersCount == 0 && Model.CompanyAddressesCount == 0)
+    <i class="fas fa-city"></i> &nbsp; <span class="font-weight-bold font-italic">@Model.Name &nbsp;</span>
+    @if (userService.User.IsInRole("Admin"))
     {
-        <a href="#">Delete</a>
+        <a asp-action="NotImplemented" asp-controller="Home" class="text-info">&#x270E; </a>
+        <span>&nbsp; &nbsp;</span>
+        @if (Model.UsersCount == 0 && Model.CompanyAddressesCount == 0)
+        {
+            <a asp-action="NotImplemented" asp-controller="Home" class="text-danger h5"> &#x2718;</a>
+        }
     }
-</li>
+</li>  

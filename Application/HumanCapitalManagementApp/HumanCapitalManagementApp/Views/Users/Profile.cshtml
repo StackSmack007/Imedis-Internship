@@ -1,6 +1,7 @@
 ﻿@model UserProfileInfoDTOout
 @inject IUserService userService
 @{
+      ViewData["Title"] = "Profile";
     bool isOwner = Model.Username == userService.User.UserName;
 }
 <h1 class="text-center">

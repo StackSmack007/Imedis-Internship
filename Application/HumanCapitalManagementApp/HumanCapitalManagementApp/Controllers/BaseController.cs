@@ -2,12 +2,15 @@
 using Microsoft.AspNetCore.Mvc;
 using Services.Contracts;
 using System.Threading.Tasks;
+using DTO;
 
 namespace HumanCapitalManagementApp.Controllers
 {
     public abstract class BaseController : Controller
     {
         protected IUserService UserService { get; }
+        protected UserDataDTOout User => UserService.User;
+        #region Adapted
         protected BaseController(IUserService userService)
         {
             UserService = userService;
@@ -32,5 +35,6 @@ namespace HumanCapitalManagementApp.Controllers
             await TempViewDataLoaderService.StoreCurrencyOptions(TempData, ViewData, js);
         protected void ClearCurrenciesFromTempData() =>
            TempViewDataLoaderService.ClearCurrenciesFromTempData(TempData);
+        #endregion
     }
 }

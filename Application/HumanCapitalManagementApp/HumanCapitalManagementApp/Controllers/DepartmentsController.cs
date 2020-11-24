@@ -17,8 +17,13 @@ namespace HumanCapitalManagementApp.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            List<DepartmentDTOout> deps = (await departmentsService.GetDepartmentsAsync()).ToList();
-            return View(deps);
+            if (UserService.IsLoggedIn)
+            {
+                List<DepartmentDTOout> deps = (await departmentsService.GetDepartmentsAsync()).ToList();
+                return View(deps);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

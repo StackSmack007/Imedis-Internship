@@ -1,6 +1,6 @@
 ﻿@model ICollection<EmployeeMiniDTOout>
 @{
-    //bool assigned = (bool)ViewData["Assigned"];
+    ViewData["Title"] = "Employees";
     string headline = ViewData["Headline"].ToString();
     var employeesSearchOptions = new[] { "Username", "With Manager", "Company" };
 }
@@ -22,7 +22,7 @@
                 </li>
             }
         </ul>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center pl-4">
             <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> &nbsp; Search </button>
         </div>
     </form>

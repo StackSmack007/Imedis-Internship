@@ -18,17 +18,22 @@ namespace HumanCapitalManagementApp.Controllers
 
         public async Task<IActionResult> Index(bool assigned = true)
         {
-            if (assigned)
+            if (UserService.IsLoggedIn && User.IsInRole("Admin"))
             {
-                ViewData["Headline"] = "Occupied employees";
-            }
-            else
-            {
-                ViewData["Headline"] = "Unoccupied employees";
+                if (assigned)
+                {
+                    ViewData["Headline"] = "Occupied employees";
+                }
+                else
+                {
+                    ViewData["Headline"] = "Unoccupied employees";
+                }
+
+                ICollection<EmployeeMiniDTOout> employees = await employeesService.GetAllMiniAsync(assigned);
+                return View(employees);
             }
 
-            ICollection<EmployeeMiniDTOout> employees = await employeesService.GetAllMiniAsync(assigned);
-            return View(employees);
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> Search(EmployeeSearchQuery dto)
@@ -39,7 +44,7 @@ namespace HumanCapitalManagementApp.Controllers
             }
             ICollection<EmployeeMiniDTOout> employeesFd = await employeesService.GetAllMiniByCriteriasAsync(dto);
             ViewData["Headline"] = $"Results of search for {dto.ToString()}";
-            return View("Index",employeesFd);
+            return View("Index", employeesFd);
         }
     }
 }
