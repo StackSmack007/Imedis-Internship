@@ -49,7 +49,7 @@ namespace Infrastructure.Data
             Map(x => x.DateOfBirth,"date_of_birth");
             Map(x => x.IsDeleted,"is_deleted");
             HasMany(x => x.UserJobs).Inverse().Cascade.All();
-            HasMany(x => x.ManagedUsers).Inverse().Cascade.All();//kakvo stava tuka
+            HasMany(x => x.ManagedUsers).Inverse().Cascade.All();
             HasManyToMany(x => x.Roles).Cascade.All().Table("UserRoles");
             References(x => x.ResidenceTown,"residence_town_id").Cascade.None();
             Table("Users");

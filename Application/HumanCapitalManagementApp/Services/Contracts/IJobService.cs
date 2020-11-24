@@ -7,7 +7,7 @@ namespace Services.Contracts
 {
     public interface IJobService
     {
-        Task<ICollection<Currency>> GetAllCurrenciesAsync();
+        Task<ICollection<CurrencyOptionDTOout>> GetAllCurrencyOptionsAsync();
         Task<ICollection<JobOptionDTOout>> GetAllJobOptionsAsync();
     }
 }

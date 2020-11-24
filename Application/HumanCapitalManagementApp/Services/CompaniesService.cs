@@ -14,8 +14,6 @@ namespace Services
     {
         public CompaniesService(IMapper mapper) : base(mapper)
         { }
-
-
         public async Task<ICollection<CompanyListItemDTOout>> GetAllCompaniesAsync()
         {
             using (var session = NhibernateHelper.OpenSession())
@@ -32,6 +30,8 @@ namespace Services
         {
             using (var session = NhibernateHelper.OpenSession())
             {
+                using (var transaction = session.BeginTransaction())
+                {
                 var companyFd = await session.Query<Company>().FirstOrDefaultAsync(x => x.Id.ToLower() == id.ToLower());
                 if (companyFd is null)
                 {
@@ -41,15 +41,12 @@ namespace Services
                 {
                     throw new InvalidOperationException($"{companyFd.Name} can't be deleted because it has {companyFd.CompanyAddresses.Count()} branches registered!");
                 }
-                using (var transaction = session.BeginTransaction())
-                {
                     await session.DeleteAsync(companyFd);
                     await transaction.CommitAsync();
                     return companyFd;
                 }
             }
         }
-
         public async Task<Company> CreateAsync(CompanyDTOin dto)
         {
             using (var session = NhibernateHelper.OpenSession())
@@ -88,7 +85,6 @@ namespace Services
                 }
             }
         }
-
         public async Task<CompanyAddress> DeleteAddressAsync(int id)
         {
             using (var session = NhibernateHelper.OpenSession())
@@ -110,7 +106,6 @@ namespace Services
                 }
             }
         }
-
         public async Task<ICollection<CompanyOfficeOptionDTOout>> GetAllCompanyOfficeOptionsAsync()
         {
             using (var session = NhibernateHelper.OpenSession())

@@ -3,6 +3,7 @@ using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Newtonsoft.Json;
 using Services.Contracts;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -63,7 +64,7 @@ namespace Services
         {
             if (!tempData.ContainsKey(CURRENCY_OPTIONS))
             {
-                Currency[] currencies = (await js.GetAllCurrenciesAsync()).ToArray();
+                CurrencyOptionDTOout[] currencies = (await js.GetAllCurrencyOptionsAsync()).ToArray();
                 tempData[CURRENCY_OPTIONS] = JsonConvert.SerializeObject(currencies);
             }
             viewData[CURRENCY_OPTIONS] = JsonConvert.DeserializeObject<Currency[]>(tempData.Peek(CURRENCY_OPTIONS).ToString());

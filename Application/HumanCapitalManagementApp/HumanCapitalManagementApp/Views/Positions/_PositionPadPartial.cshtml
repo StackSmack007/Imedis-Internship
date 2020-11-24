@@ -26,7 +26,7 @@
         <div class="sep-line"></div>
         @if (userService.IsLoggedIn && userService.User.IsInRole("Admin"))
         {
-            <a class="btn btn-warning btn-sm my-2" asp-controller="Home" asp-action="NotImplemented"><i class="fas fa-wrench"></i> Edit Position</a>
+            <a class="btn btn-warning btn-sm my-2"  asp-action="Edit" asp-route-id="@Model.Id"><i class="fas fa-wrench"></i> Edit Position</a>
             @if (!positionStillActive)
             {
                 <form method="post" asp-action="Delete">

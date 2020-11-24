@@ -1,11 +1,11 @@
-﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using DTO;
-using Infrastructure.Data;
+﻿using DTO;
+using AutoMapper;
 using NHibernate.Linq;
 using Services.Contracts;
-using System.Collections.Generic;
+using Infrastructure.Data;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using AutoMapper.QueryableExtensions;
 
 namespace Services
 {
@@ -22,12 +22,11 @@ namespace Services
             }
         }
 
-
-        public async Task<ICollection<Currency>> GetAllCurrenciesAsync()
+        public async Task<ICollection<CurrencyOptionDTOout>> GetAllCurrencyOptionsAsync()
         {
             using (var session = NhibernateHelper.OpenSession())
             {
-                return await session.Query<Currency>().ToListAsync();
+                return await session.Query<Currency>().ProjectTo<CurrencyOptionDTOout>(mapper.ConfigurationProvider).ToListAsync();
             }
         }
     }

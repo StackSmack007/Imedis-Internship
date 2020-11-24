@@ -40,23 +40,62 @@ namespace HumanCapitalManagementApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Create(PositionDTOin dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                await LoadFormDataForCreateEditAsync();
+                return View(dto);
+            }
+            try
+            {
+                var pos = await positionsService.CreateAsync(dto);
+                FreeTempDataFromCreateEditInfo();
+                TempData["Success"] = $"New Possition for user [{pos.User.Username}-{pos.User.FirstName[0]} {pos.User.LastName}] as {pos.Job.Title} was created!";
+                return RedirectToAction("Index");
+            }
+            catch (InvalidOperationException ex)
+            {
+                TempData["Failure"] = ex.Message;
+                await LoadFormDataForCreateEditAsync();
+                return View(dto);
+            }
+        }
+
+        public async Task<IActionResult> Edit(int id)
         {
             if (UserService.User.IsInRole("Admin"))
             {
-                try
-                {
-                    UserJob deletedPos = await positionsService.DeleteAsync(id);
-                    TempData["Success"] = $"Position for user {deletedPos.User.Username} as {deletedPos.Job.Title} was removed!";
-                    return RedirectToAction("Index");
-                }
-                catch (InvalidOperationException ex)
-                {
-                    TempData["Failure"] = ex.Message;
-                    return RedirectToAction("Index", new { openOnly = false });
-                }
+                PositionEditDTOin position = await positionsService.GetPositionForEditAsync(id);
+                await LoadFormDataForCreateEditAsync();
+                return View(position);
             }
+
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(PositionEditDTOin dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                await LoadFormDataForCreateEditAsync();
+                return View(dto);
+            }
+            try
+            {
+                UserJob pos = await positionsService.EditAsync(dto);
+                FreeTempDataFromCreateEditInfo();
+                TempData["Success"] = $"Possition for user [{pos.User.Username}-{pos.User.FirstName[0]} {pos.User.LastName}] as {pos.Job.Title} was eddited!";
+                bool openOnly = pos.EndDate == null;
+                return RedirectToAction("Index", new { openOnly });
+            }
+            catch (InvalidOperationException ex)
+            {
+                TempData["Failure"] = ex.Message;
+                await LoadFormDataForCreateEditAsync();
+                return View(dto);
+            }
         }
 
         [HttpPost]
@@ -79,28 +118,24 @@ namespace HumanCapitalManagementApp.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-
-
         [HttpPost]
-        public async Task<IActionResult> Create(PositionDTOin dto)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (!ModelState.IsValid)
+            if (UserService.User.IsInRole("Admin"))
             {
-                await LoadFormDataForCreateEditAsync();
-                return View(dto);
+                try
+                {
+                    UserJob deletedPos = await positionsService.DeleteAsync(id);
+                    TempData["Success"] = $"Position for user {deletedPos.User.Username} as {deletedPos.Job.Title} was removed!";
+                    return RedirectToAction("Index");
+                }
+                catch (InvalidOperationException ex)
+                {
+                    TempData["Failure"] = ex.Message;
+                    return RedirectToAction("Index", new { openOnly = false });
+                }
             }
-            try
-            {
-                var pos = await positionsService.CreateAsync(dto);
-                FreeTempDataFromCreateEditInfo();
-                TempData["Success"] = $"New Possition for user {pos.User.Username} as {pos.Job.Title} was created!";
-                return RedirectToAction("Index");
-            }
-            catch (InvalidOperationException ex)
-            {
-                TempData["Failure"] = ex.Message;
-                return View(dto);
-            }
+            return RedirectToAction("Index", "Home");
         }
 
         private async Task LoadFormDataForCreateEditAsync()
@@ -110,7 +145,6 @@ namespace HumanCapitalManagementApp.Controllers
             await StoreCurrencyOptions(jobService);
             await StoreCompanyOfficesToViewData(companiesService);
         }
-
         private void FreeTempDataFromCreateEditInfo()
         {
             ClearUsersFromTempData();
@@ -118,6 +152,5 @@ namespace HumanCapitalManagementApp.Controllers
             ClearCurrenciesFromTempData();
             ClearCompanyOfficesFromTempData();
         }
-
     }
 }

@@ -106,7 +106,7 @@ namespace HumanCapitalManagementApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteCountry(string id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (UserService.IsLoggedIn && UserService.User.IsInRole("Admin"))
             {
@@ -124,8 +124,6 @@ namespace HumanCapitalManagementApp.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-
-
         private async Task StoreCountriesToTempViewData()
         {
             CountryOptionDTOout[] countries = (await countryService.GetAllCountryOptionsAsync()).ToArray();

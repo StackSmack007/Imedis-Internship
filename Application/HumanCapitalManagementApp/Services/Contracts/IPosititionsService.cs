@@ -11,5 +11,7 @@ namespace Services.Contracts
         Task<UserJob> CreateAsync(PositionDTOin dto);
         Task<UserJob> DeleteAsync(int id);
         Task<UserJob> CancelAsync(int id);
+        Task<PositionEditDTOin> GetPositionForEditAsync(int id);
+        Task<UserJob> EditAsync(PositionEditDTOin dto);
     }
 }
