@@ -79,7 +79,7 @@ namespace Services
             {
                 bool usernameTaken = await session
                     .Query<User>()
-                    .AnyAsync(x => x.Username == data.Username);
+                    .AnyAsync(x => x.Username.ToLower() == data.Username.ToLower());
 
                 if (usernameTaken)
                     throw new ArgumentException("Username is taken!");

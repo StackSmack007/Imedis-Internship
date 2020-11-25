@@ -17,7 +17,7 @@ namespace Helpers
             var targetObject = validationContext.ObjectInstance;
             var type = targetObject.GetType();
             var otherPropertyValue = type.GetProperty(propertyName).GetValue(targetObject);
-            if (value.Equals(otherPropertyValue))
+            if (value != null && otherPropertyValue != null && value.Equals(otherPropertyValue))
             {
                 return ValidationResult.Success;
             }

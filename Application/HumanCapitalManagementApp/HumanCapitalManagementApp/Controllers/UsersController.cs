@@ -36,7 +36,9 @@ namespace HumanCapitalManagementApp.Controllers
             }
             catch (System.Exception ex)
             {
-                ModelState.AddModelError("registration failure!", ex.Message);
+                await StoreTownsToViewData(townService);
+                ModelState.AddModelError("registration failure!", ex.Message);               
+                return View(dto);
             }
             ClearTownsFromTempData();
             return RedirectToAction("Index", "Home");
