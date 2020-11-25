@@ -1,8 +1,21 @@
-﻿@{
+﻿@model AppStatisticsDTOout
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-5 py-3">Welcome to Human Capital Management Application</h1>
+    <hr />
+    <h3>Purpose:</h3>
+    <p class="font-italic">Users can register and become employees.</p>
+    <p>Admin can Register new <span class="font-weight-bold">Companies, Countries, Departments </span> and Assign users to <span class="font-weight-bold">Positions</span> as well as cancel job possitions. </p>
+    <div>
+        <h3 class="pt-4"><i class="fas fa-database"></i> Statistics:</h3>
+        <ul class="list-unstyled">
+            <li class="pb-3"><i class="fas fa-users"></i> @Model.Users.Count() Users registered : [ <span class="font-weight-bold">@string.Join(", ", Model.Users) ]</span></li>
+            <li class="pb-3"><i class="fas fa-building"></i> @Model.Users.Count() Companies registered : [ <span class="font-weight-bold">@string.Join(", ", Model.Companies) ]</span></li>
+            <li class="pb-3"><i class="fas fa-briefcase"></i>  Active Job Possitions : <span class="font-weight-bold">@Model.PositionsActive</span></li>
+            <li class="pb-3"><i class="fas fa-briefcase"></i>  Closed Job Possitions : <span class="font-weight-bold">@Model.PositionsClosed</span></li>
+        </ul>
+    </div>
 </div>

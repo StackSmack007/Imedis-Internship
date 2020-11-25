@@ -33,6 +33,8 @@ namespace HumanCapitalManagementApp
                 mc.AddProfile(profile);
             });
 
+            services.AddMemoryCache();
+
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
             services.AddSingleton<IEncrypter, Encrypter>();
@@ -45,6 +47,7 @@ namespace HumanCapitalManagementApp
             services.AddTransient<IPosititionsService, PositionsService>();
             services.AddTransient<IEmployeesService, EmployeesService>();
             services.AddTransient<IJobService, JobService>();
+            services.AddTransient<IStatisticsService, StatisticsService>();
             services
                .AddControllersWithViews()
                .AddRazorRuntimeCompilation();

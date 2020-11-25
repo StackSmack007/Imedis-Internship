@@ -17,11 +17,13 @@ namespace Services
 {
     public class UserService : BaseService, IUserService
     {
+        private readonly IStatisticsService statisticsService;
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IEncrypter encrypter;
         private const string AUTH_COOKIE_NAME = "UserAuth";
-        public UserService(IHttpContextAccessor httpContextAccessor, IMapper mapper, IEncrypter encrypter) : base(mapper)
+        public UserService(IStatisticsService statisticsService, IHttpContextAccessor httpContextAccessor, IMapper mapper, IEncrypter encrypter) : base(mapper)
         {
+            this.statisticsService = statisticsService;
             this.httpContextAccessor = httpContextAccessor;
             this.encrypter = encrypter;
         }
@@ -66,7 +68,7 @@ namespace Services
         {
             if (httpContextAccessor.HttpContext.Request.Cookies.ContainsKey(AUTH_COOKIE_NAME))
             {
-                this.httpContextAccessor.HttpContext.Response.Cookies.Delete(AUTH_COOKIE_NAME);
+                httpContextAccessor.HttpContext.Response.Cookies.Delete(AUTH_COOKIE_NAME);
             }
         }
 
@@ -98,7 +100,7 @@ namespace Services
                     await transaction.CommitAsync();
                 }
             }
-
+            statisticsService.ClearStatistics();
             return await LoginAsync(new UserLoginDTOin(data.Username, data.Password));
         }
 

@@ -2,7 +2,7 @@
 @inject IUserService userService
 @{
     var classIfMain = Model.IsPrimary ? "text-success" : "";
-    bool isAdmin = userService.IsLoggedIn && userService.User.IsInRole("Admin"); 
+    bool isAdmin = userService.IsLoggedIn && userService.User.IsInRole(GlobalConstants.AdministratorRole); 
 }
 <li>
     <div>

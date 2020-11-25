@@ -25,7 +25,7 @@
                         <div id="navbarContent" class="d-flex flex-grow-1 justify-content-center collapse navbar-collapse">
                             @if (userService.IsLoggedIn)
                             {
-                                if (userService.User.IsInRole("Admin"))
+                                if (userService.User.IsInRole(GlobalConstants.AdministratorRole))
                                 {
                                     <partial name="_AdminButtonPartial" />
                                 }

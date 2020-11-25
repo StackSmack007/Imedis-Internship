@@ -37,7 +37,7 @@ namespace HumanCapitalManagementApp.Controllers
             catch (System.Exception ex)
             {
                 await StoreTownsToViewData(townService);
-                ModelState.AddModelError("registration failure!", ex.Message);               
+                ModelState.AddModelError("registration failure!", ex.Message);
                 return View(dto);
             }
             ClearTownsFromTempData();
@@ -63,8 +63,15 @@ namespace HumanCapitalManagementApp.Controllers
             return View(dto);
         }
 
-        public async Task<IActionResult> Profile(string username) =>
-                                         View(await UserService.GetProfileDataAsync(username));
+        public async Task<IActionResult> Profile(string username)
+        {
+            if (UserService.IsLoggedIn)
+            {
+                return View(await UserService.GetProfileDataAsync(username));
+            }
+
+            return RedirectToAction("Index");
+        }
 
         public async Task<IActionResult> EditMyProfile()
         {

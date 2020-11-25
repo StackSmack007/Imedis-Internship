@@ -22,7 +22,7 @@
             </ul>
 
         }
-        @if (userService.User.IsInRole("Admin"))
+        @if (userService.User.IsInRole(GlobalConstants.AdministratorRole))
         {
             <a class="btn btn-warning btn-sm my-2" asp-action="Edit" asp-route-id="@Model.Id"><i class="fas fa-wrench"></i> Edit Country</a>
             @if (!Model.Towns.Any())

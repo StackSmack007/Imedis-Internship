@@ -12,8 +12,12 @@ namespace Services
 {
     public class CompaniesService : BaseService, ICompaniesService
     {
-        public CompaniesService(IMapper mapper) : base(mapper)
-        { }
+        private readonly IStatisticsService statisticsService;
+
+        public CompaniesService(IMapper mapper,IStatisticsService statisticsService) : base(mapper)
+        {
+            this.statisticsService = statisticsService;
+        }
         public async Task<ICollection<CompanyListItemDTOout>> GetAllCompaniesAsync()
         {
             using (var session = NhibernateHelper.OpenSession())
@@ -43,6 +47,7 @@ namespace Services
                 }
                     await session.DeleteAsync(companyFd);
                     await transaction.CommitAsync();
+                    statisticsService.ClearStatistics();
                     return companyFd;
                 }
             }
@@ -81,6 +86,7 @@ namespace Services
                     await session.SaveAsync(newCompany);
                     await session.SaveAsync(newAddress);
                     await transaction.CommitAsync();
+                    statisticsService.ClearStatistics();
                     return newCompany;
                 }
             }

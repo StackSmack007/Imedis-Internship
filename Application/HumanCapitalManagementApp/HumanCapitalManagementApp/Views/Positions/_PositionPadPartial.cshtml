@@ -24,7 +24,7 @@
         <h6><i class="fas fa-clock"></i> Occupation: @Model.WeekHours hours per week</h6>
         <h6><i class="fas fa-calendar-alt"></i> Work Period: From @Model.StartDate.ToString("dd/MM/yyyy") till @(positionStillActive ? "nowadays" : Model.EndDate?.ToString("dd/MM/yyyy"))</h6>
         <div class="sep-line"></div>
-        @if (userService.IsLoggedIn && userService.User.IsInRole("Admin"))
+        @if (userService.IsLoggedIn && userService.User.IsInRole(GlobalConstants.AdministratorRole))
         {
             <a class="btn btn-warning btn-sm my-2"  asp-action="Edit" asp-route-id="@Model.Id"><i class="fas fa-wrench"></i> Edit Position</a>
             @if (!positionStillActive)

@@ -12,8 +12,11 @@ namespace Services
 {
     public class PositionsService : BaseService, IPosititionsService
     {
-        public PositionsService(IMapper mapper) : base(mapper)
-        { }
+        private readonly IStatisticsService statisticsService;
+        public PositionsService(IStatisticsService statisticsService,IMapper mapper) : base(mapper)
+        {
+            this.statisticsService = statisticsService;
+        }
         public async Task<ICollection<PositionMiniDTOout>> GetAllMiniAsync(bool showActive)
         {
             using (var session = NhibernateHelper.OpenSession())
@@ -59,6 +62,7 @@ namespace Services
                     };
                     await session.SaveAsync(newUserJob);
                     await transaction.CommitAsync();
+                    statisticsService.ClearStatistics();
                     return newUserJob;
                 }
             }
@@ -167,6 +171,7 @@ namespace Services
                     }
                     await session.DeleteAsync(userJobFd);
                     await transaction.CommitAsync();
+                    statisticsService.ClearStatistics();
                     return userJobFd;
                 }
             }

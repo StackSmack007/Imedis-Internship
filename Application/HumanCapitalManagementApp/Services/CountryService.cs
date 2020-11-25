@@ -14,8 +14,7 @@ namespace Services
     public class CountryService : BaseService, ICountryService
     {
         public CountryService(IMapper mapper) : base(mapper)
-        {
-        }
+        {        }
 
         public async Task<ICollection<CountryDTOout>> GetAllCountriesAsync()
         {

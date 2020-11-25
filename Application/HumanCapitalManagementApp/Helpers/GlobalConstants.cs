@@ -12,5 +12,8 @@ namespace Helpers
             [Gender.Male] = "mr"
         };
 
+        public static string StatisticsCasheName = "statistics_home";
+        public static string AdministratorRole = "Admin";
+        
     }
 }
